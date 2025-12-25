@@ -3,111 +3,231 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MarieNeufTrois — Exposition</title>
-  <meta name="description" content="Site officiel de MarieNeufTrois — peintures, exposition, contact." />
+  <title>MarieMeufTrois — Exposition</title>
+  <meta name="description" content="Site officiel de MarieMeufTrois — peintures, exposition, contact." />
+
+  <!-- POLICE SUGAR PIE -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sugar+Pie&display=swap" rel="stylesheet">
 
   <style>
     :root { --max: 980px; }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: 1.6;
-      color: #111;
-      background: #fafafa;
-    }
-    header {
-      padding: 64px 20px 30px;
-      background: white;
-      border-bottom: 1px solid #eee;
-    }
-    .wrap { max-width: var(--max); margin: 0 auto; }
-    h1 { margin: 0 0 10px; font-size: 40px; letter-spacing: 0.3px; }
-    .sub { margin: 0; color: #444; max-width: 70ch; }
 
-    main { padding: 28px 20px 80px; }
-    h2 { margin: 40px 0 12px; font-size: 22px; }
-    .card {
-      background: white;
-      border: 1px solid #eee;
-      border-radius: 16px;
-      padding: 18px;
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+      color:#111;
+      background:#fafafa;
+    }
+
+    .wrap{ max-width: var(--max); margin:0 auto; }
+
+    /* ===== HERO ===== */
+    header.hero{
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 90px 20px 70px;
+      background-image:
+        linear-gradient(to top, rgba(0,0,0,0.58), rgba(0,0,0,0.15)),
+        url("images/tableau3.jpeg");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+
+    header.hero .wrap{
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== TITRE — SUGAR PIE + EFFET ECLAIR ===== */
+    @keyframes lightningFlash {
+      0% {
+        opacity: 0;
+        filter: brightness(0.6);
+        transform: translateY(6px);
+      }
+      20% {
+        opacity: 1;
+        filter: brightness(3);
+        transform: translateY(0);
+      }
+      35% {
+        filter: brightness(1);
+      }
+      60% {
+        filter: brightness(2);
+      }
+      100% {
+        filter: brightness(1);
+      }
+    }
+
+    header.hero h1{
+      margin:0 0 12px;
+      font-family: 'Sugar Pie', cursive;
+      font-size: clamp(52px, 7vw, 96px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      text-shadow:
+        0 4px 12px rgba(0,0,0,0.5),
+        0 16px 32px rgba(0,0,0,0.35);
+      animation: lightningFlash 0.55s ease-out 0.2s both;
+    }
+
+    /* Respect accessibilité */
+    @media (prefers-reduced-motion: reduce) {
+      header.hero h1 {
+        animation: none;
+      }
+    }
+
+    header.hero .sub{
+      margin:0;
+      color: rgba(255,255,255,0.92);
+      font-size: 18px;
+      max-width: 68ch;
+      text-shadow: 0 8px 18px rgba(0,0,0,0.25);
+    }
+
+    /* NAV */
+    .navpills{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap: wrap;
+      gap:10px;
+    }
+
+    a{ color: inherit; }
+
+    .pill{
+      display:inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      text-decoration:none;
+      background: rgba(255,255,255,0.92);
+      color:#111;
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(6px);
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,1);
+    }
+
+    /* ===== CONTENT ===== */
+    main{ padding: 28px 20px 80px; }
+    h2{ margin:40px 0 12px; font-size:22px; }
+
+    .card{
+      background:#fff;
+      border:1px solid #eee;
+      border-radius:16px;
+      padding:18px;
       box-shadow: 0 6px 18px rgba(0,0,0,.04);
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .row{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:14px;
     }
-    @media (max-width: 900px){ .grid { grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 560px){ .grid { grid-template-columns: 1fr;} }
 
-    figure { margin: 0; }
-    img {
-      width: 100%;
+    @media (max-width: 900px){
+      .row{ grid-template-columns:1fr; }
+    }
+
+    /* ===== GALERIE ===== */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 560px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    figure{ margin:0; }
+
+    img{
+      width:100%;
       height: 320px;
       object-fit: cover;
       border-radius: 14px;
-      display: block;
-      background: #ddd;
+      display:block;
+      background:#ddd;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
-    figcaption { font-size: 14px; color: #444; margin-top: 8px; }
 
-    .row { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; }
-    @media (max-width: 900px){ .row { grid-template-columns: 1fr;} }
+    figure:hover img{
+      transform: scale(1.01);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+    }
 
-    a { color: inherit; }
-    .pill {
-      display: inline-block;
-      padding: 6px 10px;
-      border: 1px solid #e5e5e5;
-      border-radius: 999px;
-      background: #fff;
-      font-size: 14px;
-      margin-right: 8px;
-      margin-top: 8px;
-      text-decoration: none;
+    figcaption{
+      font-size:14px;
+      color:#444;
+      margin-top:8px;
     }
-    footer {
-      padding: 22px 20px;
-      border-top: 1px solid #eee;
-      background: white;
-      color: #444;
-      font-size: 14px;
+
+    footer{
+      padding:22px 20px;
+      border-top:1px solid #eee;
+      background:#fff;
+      color:#444;
+      font-size:14px;
     }
+
+    html{ scroll-behavior: smooth; }
   </style>
 </head>
 
 <body>
-  <header>
+
+  <header class="hero">
     <div class="wrap">
-      <h1>MarieNeufTrois</h1>
+      <h1>MarieMeufTrois</h1>
       <p class="sub">
-        Peintures • Série “Nom de la série” • Une phrase courte sur l’univers / la démarche.
+        Peintures & collages — Montreuil<br>
+        <strong>Exposition • (dates) • (lieu)</strong>
       </p>
-      <a class="pill" href="#expo">Infos expo</a>
-      <a class="pill" href="#oeuvres">Œuvres</a>
-      <a class="pill" href="#contact">Contact</a>
+
+      <div class="navpills">
+        <a class="pill" href="#expo">Infos expo</a>
+        <a class="pill" href="#oeuvres">Œuvres</a>
+        <a class="pill" href="#contact">Contact</a>
+      </div>
     </div>
   </header>
 
   <main class="wrap">
+
     <section class="row">
       <div class="card">
         <h2>À propos</h2>
-        <p>
-          Artiste collagiste montreuilloise !
-        </p>
+        <p>Artiste collagiste montreuilloise !</p>
       </div>
 
       <div class="card" id="expo">
         <h2>Exposition</h2>
         <p>
-          <strong>Lieu :</strong> …<br />
-          <strong>Adresse :</strong> …<br />
-          <strong>Dates :</strong> …<br />
-          <strong>Horaires :</strong> …<br />
+          <strong>Lieu :</strong> …<br>
+          <strong>Adresse :</strong> …<br>
+          <strong>Dates :</strong> …<br>
+          <strong>Horaires :</strong> …<br>
           <strong>Vernissage :</strong> … (optionnel)
         </p>
       </div>
@@ -115,31 +235,40 @@
 
     <section id="oeuvres">
       <h2>Œuvres</h2>
+
       <div class="grid">
         <figure>
-          <img src="images/tableau1.jpeg" alt="Titre du tableau 1" />
+          <a href="images/tableau1.jpeg" target="_blank" rel="noopener">
+            <img src="images/tableau1.jpeg" alt="Titre du tableau 1" loading="lazy">
+          </a>
           <figcaption><strong>Titre 1</strong> — 50×70 cm — acrylique (2025)</figcaption>
         </figure>
+
         <figure>
-          <img src="images/tableau2.jpeg" alt="Titre du tableau 2" />
+          <a href="images/tableau2.jpeg" target="_blank" rel="noopener">
+            <img src="images/tableau2.jpeg" alt="Titre du tableau 2" loading="lazy">
+          </a>
           <figcaption><strong>Titre 2</strong> — 60×60 cm — huile (2025)</figcaption>
         </figure>
+
         <figure>
-          <img src="images/tableau3.jpeg" alt="Titre du tableau 3" />
+          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
+            <img src="images/tableau3.jpeg" alt="Titre du tableau 3" loading="lazy">
+          </a>
           <figcaption><strong>Titre 3</strong> — 40×50 cm — technique (2025)</figcaption>
         </figure>
       </div>
-      <p style="color:#444; margin-top:12px">
-        Astuce : ajoute autant de tableaux que tu veux en copiant/collant un bloc &lt;figure&gt;.
-      </p>
     </section>
 
     <section class="row" id="contact">
       <div class="card">
         <h2>Contact</h2>
         <p>
-          📧 <a href="mailto:mariemeuftrois@gmail.com">mariemeuftrois@gmail.com</a><br />
-          📷 Instagram : <a href="https://www.instagram.com/mariemeuftrois?igsh=bmRrNjlqbWgyaWVw" target="_blank" rel="noopener"> @mariemeuftrois</a><br />
+          📧 <a href="mailto:mariemeuftrois@gmail.com">mariemeuftrois@gmail.com</a><br>
+          📷 Instagram :
+          <a href="https://www.instagram.com/mariemeuftrois" target="_blank" rel="noopener">
+            @mariemeuftrois
+          </a><br>
           📍 Montreuil
         </p>
       </div>
@@ -147,24 +276,25 @@
       <div class="card">
         <h2>Infos pratiques</h2>
         <p>
-          • Entrée libre / prix<br />
-          • Accès (métro, parking…)<br />
+          • Entrée libre<br>
+          • Accès métro / parking<br>
           • Paiement / réservations (optionnel)
         </p>
       </div>
     </section>
+
   </main>
 
   <footer>
     <div class="wrap">
-      © <span id="y"></span> MarieNeufTrois — Tous droits réservés.
+      © <span id="y"></span> MarieMeufTrois — Tous droits réservés.
     </div>
   </footer>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
-
 
