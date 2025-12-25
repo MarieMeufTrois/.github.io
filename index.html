@@ -6,7 +6,6 @@
   <title>MarieMeufTrois — Exposition</title>
   <meta name="description" content="Site officiel de MarieMeufTrois — peintures, exposition, contact." />
 
-  <!-- POLICE SUGAR PIE -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sugar+Pie&display=swap" rel="stylesheet">
@@ -25,7 +24,6 @@
 
     .wrap{ max-width: var(--max); margin:0 auto; }
 
-    /* ===== HERO ===== */
     header.hero{
       position: relative;
       min-height: 72vh;
@@ -45,29 +43,6 @@
       z-index: 1;
     }
 
-    /* ===== TITRE — SUGAR PIE + EFFET ECLAIR ===== */
-    @keyframes lightningFlash {
-      0% {
-        opacity: 0;
-        filter: brightness(0.6);
-        transform: translateY(6px);
-      }
-      20% {
-        opacity: 1;
-        filter: brightness(3);
-        transform: translateY(0);
-      }
-      35% {
-        filter: brightness(1);
-      }
-      60% {
-        filter: brightness(2);
-      }
-      100% {
-        filter: brightness(1);
-      }
-    }
-
     header.hero h1{
       margin:0 0 12px;
       font-family: 'Sugar Pie', cursive;
@@ -77,14 +52,6 @@
       text-shadow:
         0 4px 12px rgba(0,0,0,0.5),
         0 16px 32px rgba(0,0,0,0.35);
-      animation: lightningFlash 0.55s ease-out 0.2s both;
-    }
-
-    /* Respect accessibilité */
-    @media (prefers-reduced-motion: reduce) {
-      header.hero h1 {
-        animation: none;
-      }
     }
 
     header.hero .sub{
@@ -95,7 +62,68 @@
       text-shadow: 0 8px 18px rgba(0,0,0,0.25);
     }
 
-    /* NAV */
+    @keyframes glitchMove {
+      0% { transform: translate(0); }
+      15% { transform: translate(-2px, 1px); }
+      30% { transform: translate(2px, -1px); }
+      45% { transform: translate(-3px, 0); }
+      60% { transform: translate(3px, 1px); }
+      75% { transform: translate(-1px, -1px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes glitchClip1 {
+      0% { clip-path: inset(0 0 85% 0); opacity: .85; }
+      25% { clip-path: inset(20% 0 55% 0); }
+      50% { clip-path: inset(45% 0 35% 0); }
+      75% { clip-path: inset(65% 0 15% 0); }
+      100% { clip-path: inset(0 0 85% 0); opacity: 0; }
+    }
+
+    @keyframes glitchClip2 {
+      0% { clip-path: inset(80% 0 0 0); opacity: .85; }
+      25% { clip-path: inset(60% 0 20% 0); }
+      50% { clip-path: inset(40% 0 40% 0); }
+      75% { clip-path: inset(20% 0 60% 0); }
+      100% { clip-path: inset(80% 0 0 0); opacity: 0; }
+    }
+
+    .glitch{
+      position: relative;
+      display: inline-block;
+      animation: glitchMove 1000ms ease-out 150ms both;
+    }
+
+    .glitch::before,
+    .glitch::after{
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .glitch::before{
+      color: rgba(255, 40, 90, 0.95);
+      transform: translate(-15px, 0);
+      animation: glitchClip1 700ms ease-out 150ms both;
+      mix-blend-mode: screen;
+    }
+
+    .glitch::after{
+      color: rgba(0, 220, 255, 0.95);
+      transform: translate(15px, 0);
+      animation: glitchClip2 700ms ease-out 150ms both;
+      mix-blend-mode: screen;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .glitch, .glitch::before, .glitch::after{
+        animation: none !important;
+      }
+    }
+
     .navpills{
       margin-top: 18px;
       display:flex;
@@ -123,7 +151,6 @@
       background: rgba(255,255,255,1);
     }
 
-    /* ===== CONTENT ===== */
     main{ padding: 28px 20px 80px; }
     h2{ margin:40px 0 12px; font-size:22px; }
 
@@ -145,7 +172,6 @@
       .row{ grid-template-columns:1fr; }
     }
 
-    /* ===== GALERIE ===== */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -199,7 +225,7 @@
 
   <header class="hero">
     <div class="wrap">
-      <h1>MarieMeufTrois</h1>
+      <h1 class="glitch" data-text="MarieMeufTrois">MarieMeufTrois</h1>
       <p class="sub">
         Peintures & collages — Montreuil<br>
         <strong>Exposition • (dates) • (lieu)</strong>
@@ -297,4 +323,3 @@
 
 </body>
 </html>
-
