@@ -8,6 +8,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Sugar+Pie&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Sugar+Pie&display=swap" rel="stylesheet">
 
   <style>
@@ -45,7 +47,7 @@
 
     header.hero h1{
       margin:0 0 12px;
-      font-family: 'Sugar Pie', cursive;
+      font-family: 'Sugar Pie', 'Comic Sans MS', cursive;
       font-size: clamp(52px, 7vw, 96px);
       letter-spacing: 0.04em;
       line-height: 1;
@@ -73,85 +75,83 @@
     }
 
     @keyframes glitchClip1 {
-      0% { clip-path: inset(0 0 85% 0); opacity: .85; }
+      0% { clip-path: inset(0 0 85% 0); opacity:.85; }
       25% { clip-path: inset(20% 0 55% 0); }
       50% { clip-path: inset(45% 0 35% 0); }
       75% { clip-path: inset(65% 0 15% 0); }
-      100% { clip-path: inset(0 0 85% 0); opacity: 0; }
+      100% { clip-path: inset(0 0 85% 0); opacity:0; }
     }
 
     @keyframes glitchClip2 {
-      0% { clip-path: inset(80% 0 0 0); opacity: .85; }
+      0% { clip-path: inset(80% 0 0 0); opacity:.85; }
       25% { clip-path: inset(60% 0 20% 0); }
       50% { clip-path: inset(40% 0 40% 0); }
       75% { clip-path: inset(20% 0 60% 0); }
-      100% { clip-path: inset(80% 0 0 0); opacity: 0; }
+      100% { clip-path: inset(80% 0 0 0); opacity:0; }
     }
 
     .glitch{
       position: relative;
       display: inline-block;
-      animation: glitchMove 1000ms ease-out 150ms both;
+      animation: glitchMove 700ms ease-out 150ms both;
     }
 
     .glitch::before,
     .glitch::after{
       content: attr(data-text);
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
+      inset: 0;
       pointer-events: none;
     }
 
     .glitch::before{
-      color: rgba(255, 40, 90, 0.95);
-      transform: translate(-15px, 0);
+      color: rgba(255,40,90,0.95);
+      transform: translate(-2px,0);
       animation: glitchClip1 700ms ease-out 150ms both;
       mix-blend-mode: screen;
     }
 
     .glitch::after{
-      color: rgba(0, 220, 255, 0.95);
-      transform: translate(15px, 0);
+      color: rgba(0,220,255,0.95);
+      transform: translate(2px,0);
       animation: glitchClip2 700ms ease-out 150ms both;
       mix-blend-mode: screen;
     }
 
     @media (prefers-reduced-motion: reduce){
       .glitch, .glitch::before, .glitch::after{
-        animation: none !important;
+        animation:none !important;
       }
     }
 
     .navpills{
-      margin-top: 18px;
+      margin-top:18px;
       display:flex;
-      flex-wrap: wrap;
+      flex-wrap:wrap;
       gap:10px;
     }
 
-    a{ color: inherit; }
+    a{ color:inherit; }
 
     .pill{
       display:inline-block;
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 14px;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:14px;
       text-decoration:none;
-      background: rgba(255,255,255,0.92);
+      background:rgba(255,255,255,0.92);
       color:#111;
-      border: 1px solid rgba(255,255,255,0.35);
-      backdrop-filter: blur(6px);
-      transition: transform .15s ease, background .15s ease;
+      border:1px solid rgba(255,255,255,0.35);
+      backdrop-filter:blur(6px);
+      transition:transform .15s ease, background .15s ease;
     }
 
     .pill:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,1);
+      transform:translateY(-1px);
+      background:#fff;
     }
 
-    main{ padding: 28px 20px 80px; }
+    main{ padding:28px 20px 80px; }
     h2{ margin:40px 0 12px; font-size:22px; }
 
     .card{
@@ -159,48 +159,39 @@
       border:1px solid #eee;
       border-radius:16px;
       padding:18px;
-      box-shadow: 0 6px 18px rgba(0,0,0,.04);
+      box-shadow:0 6px 18px rgba(0,0,0,.04);
     }
 
     .row{
       display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns:1.2fr 0.8fr;
       gap:14px;
     }
 
-    @media (max-width: 900px){
+    @media (max-width:900px){
       .row{ grid-template-columns:1fr; }
     }
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns:repeat(3,1fr);
       gap:14px;
     }
 
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: repeat(2, 1fr); }
+    @media (max-width:900px){
+      .grid{ grid-template-columns:repeat(2,1fr); }
     }
 
-    @media (max-width: 560px){
-      .grid{ grid-template-columns: 1fr; }
+    @media (max-width:560px){
+      .grid{ grid-template-columns:1fr; }
     }
-
-    figure{ margin:0; }
 
     img{
       width:100%;
-      height: 320px;
-      object-fit: cover;
-      border-radius: 14px;
-      display:block;
+      height:320px;
+      object-fit:cover;
+      border-radius:14px;
       background:#ddd;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    figure:hover img{
-      transform: scale(1.01);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.12);
     }
 
     figcaption{
@@ -217,109 +208,65 @@
       font-size:14px;
     }
 
-    html{ scroll-behavior: smooth; }
+    html{ scroll-behavior:smooth; }
   </style>
 </head>
 
 <body>
 
-  <header class="hero">
-    <div class="wrap">
-      <h1 class="glitch" data-text="MarieMeufTrois">MarieMeufTrois</h1>
-      <p class="sub">
-        Peintures & collages — Montreuil<br>
-        <strong>Exposition • (dates) • (lieu)</strong>
+<header class="hero">
+  <div class="wrap">
+    <h1 class="glitch" data-text="MarieMeufTrois">MarieMeufTrois</h1>
+    <p class="sub">
+      Peintures & collages — Montreuil<br>
+      <strong>Exposition • (dates) • (lieu)</strong>
+    </p>
+
+    <div class="navpills">
+      <a class="pill" href="#expo">Infos expo</a>
+      <a class="pill" href="#oeuvres">Œuvres</a>
+      <a class="pill" href="#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="row">
+    <div class="card">
+      <h2>À propos</h2>
+      <p>Artiste collagiste montreuilloise !</p>
+    </div>
+
+    <div class="card" id="expo">
+      <h2>Exposition</h2>
+      <p>
+        <strong>Lieu :</strong> …<br>
+        <strong>Adresse :</strong> …<br>
+        <strong>Dates :</strong> …<br>
+        <strong>Horaires :</strong> …<br>
+        <strong>Vernissage :</strong> … (optionnel)
       </p>
-
-      <div class="navpills">
-        <a class="pill" href="#expo">Infos expo</a>
-        <a class="pill" href="#oeuvres">Œuvres</a>
-        <a class="pill" href="#contact">Contact</a>
-      </div>
     </div>
-  </header>
+  </section>
 
-  <main class="wrap">
-
-    <section class="row">
-      <div class="card">
-        <h2>À propos</h2>
-        <p>Artiste collagiste montreuilloise !</p>
-      </div>
-
-      <div class="card" id="expo">
-        <h2>Exposition</h2>
-        <p>
-          <strong>Lieu :</strong> …<br>
-          <strong>Adresse :</strong> …<br>
-          <strong>Dates :</strong> …<br>
-          <strong>Horaires :</strong> …<br>
-          <strong>Vernissage :</strong> … (optionnel)
-        </p>
-      </div>
-    </section>
-
-    <section id="oeuvres">
-      <h2>Œuvres</h2>
-
-      <div class="grid">
-        <figure>
-          <a href="images/tableau1.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau1.jpeg" alt="Titre du tableau 1" loading="lazy">
-          </a>
-          <figcaption><strong>Titre 1</strong> — 50×70 cm — acrylique (2025)</figcaption>
-        </figure>
-
-        <figure>
-          <a href="images/tableau2.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau2.jpeg" alt="Titre du tableau 2" loading="lazy">
-          </a>
-          <figcaption><strong>Titre 2</strong> — 60×60 cm — huile (2025)</figcaption>
-        </figure>
-
-        <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau3.jpeg" alt="Titre du tableau 3" loading="lazy">
-          </a>
-          <figcaption><strong>Titre 3</strong> — 40×50 cm — technique (2025)</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="row" id="contact">
-      <div class="card">
-        <h2>Contact</h2>
-        <p>
-          📧 <a href="mailto:mariemeuftrois@gmail.com">mariemeuftrois@gmail.com</a><br>
-          📷 Instagram :
-          <a href="https://www.instagram.com/mariemeuftrois" target="_blank" rel="noopener">
-            @mariemeuftrois
-          </a><br>
-          📍 Montreuil
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>Infos pratiques</h2>
-        <p>
-          • Entrée libre<br>
-          • Accès métro / parking<br>
-          • Paiement / réservations (optionnel)
-        </p>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="wrap">
-      © <span id="y"></span> MarieMeufTrois — Tous droits réservés.
+  <section id="oeuvres">
+    <h2>Œuvres</h2>
+    <div class="grid">
     </div>
-  </footer>
+  </section>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+</main>
+
+<footer>
+  <div class="wrap">
+    © <span id="y"></span> MarieMeufTrois — Tous droits réservés.
+  </div>
+</footer>
+
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
