@@ -189,8 +189,8 @@
       background-image: url("images/watermark.png");
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 60%;
-      opacity: 0.22; /* plus doux */
+      background-size: 70%;
+      opacity: 0.80; 
       pointer-events: none;
     }
 
@@ -201,7 +201,6 @@
       border-radius: 14px;
       display:block;
       background:#ddd;
-
       user-select: none;
       -webkit-user-drag: none;
     }
@@ -229,6 +228,26 @@
       z-index: 9999;
       cursor: zoom-out;
       padding: 18px;
+    }
+
+    /* CROIX FERMETURE */
+    .lightbox-close{
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 34px;
+      font-weight: 300;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.85;
+      z-index: 10000;
+    }
+    .lightbox-close:hover{
+      opacity: 1;
+      transform: scale(1.08);
     }
 
     .lightbox-inner{
@@ -267,7 +286,7 @@
       background-image: url("images/watermark.png");
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 100%;
+      background-size: 100%; 
       opacity: 0.80;
       pointer-events: none;
     }
@@ -281,20 +300,17 @@
       line-height: 1.4;
     }
 
-    /* TITRE */
     .lb-title{
       font-weight: 700;
       font-size: 18px;
       margin-bottom: 10px;
     }
 
-    /* DIMENSIONS / ANNÉE */
     .lb-line{
       opacity: .9;
       margin-bottom: 14px;
     }
 
-    /* STATUT */
     .lb-status{
       display: inline-block;
       padding: 6px 12px;
@@ -316,6 +332,10 @@
       background: rgba(255,210,90,0.12);
       border-color: rgba(255,210,90,0.25);
     }
+    .lb-status[data-status="NFS"]{
+      background: rgba(160,160,160,0.16);
+      border-color: rgba(200,200,200,0.20);
+    }
 
     /* mobile */
     @media (max-width: 700px){
@@ -331,10 +351,6 @@
         max-width: 92vw;
         text-align: center;
       }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      figure:hover img{ transform:none; }
     }
   </style>
 </head>
@@ -360,7 +376,7 @@
     <section class="row">
       <div class="card">
         <h2>À propos</h2>
-        <p>Artiste collagiste montreuilloise ! Œuvres réalisées à partir de fragments photographiques de l’espace urbain, transformés et recomposés.</p>
+        <p>Artiste collagiste montreuilloise !</p>
       </div>
 
       <div class="card" id="expo">
@@ -381,8 +397,8 @@
       <div class="grid">
         <figure>
           <img src="images/tableau1.jpeg" alt="Titre 1" class="lightbox-img" loading="lazy"
-               data-title="Titre 1" data-size="50×70 cm" data-year="2025" data-status="Réservé" />
-          <figcaption><strong>Titre 1</strong> — 50×70 cm — 2025 — Réservé</figcaption>
+               data-title="Titre 1" data-size="50×70 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 1</strong> — 50×70 cm — 2025 — Disponible</figcaption>
         </figure>
 
         <figure>
@@ -405,8 +421,8 @@
 
         <figure>
           <img src="images/tableau5.jpeg" alt="Titre 5" class="lightbox-img" loading="lazy"
-               data-title="Titre 5" data-size="40×50 cm" data-year="2025" data-status="Vendu" />
-          <figcaption><strong>Titre 5</strong> — 40×50 cm — 2025 — Vendu</figcaption>
+               data-title="Titre 5" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 5</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
 
         <figure>
@@ -527,6 +543,8 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" aria-label="Fermer">✕</button>
+
     <div class="lightbox-inner" role="dialog" aria-modal="true">
       <div class="lightbox-image-wrap">
         <img id="lightbox-image" alt="">
@@ -548,11 +566,20 @@
 
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-image");
+    lightboxImg.addEventListener("contextmenu", (e) => e.preventDefault());
+    const closeBtn = document.querySelector(".lightbox-close");
 
     const lbTitle = document.getElementById("lb-title");
     const lbSize  = document.getElementById("lb-size");
     const lbYear  = document.getElementById("lb-year");
     const lbStatus= document.getElementById("lb-status");
+
+    function closeLightbox(){
+      lightbox.style.display = "none";
+      lightboxImg.src = "";
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
 
     // Ouvrir la lightbox
     document.querySelectorAll(".lightbox-img").forEach((img) => {
@@ -577,26 +604,24 @@
       img.addEventListener("contextmenu", (e) => e.preventDefault());
     });
 
-    // Fermer au clic sur le fond (pas sur le contenu)
+    // Croix
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    });
+
+    // Fermer au clic sur le fond
     lightbox.addEventListener("click", (e) => {
       if (e.target !== lightbox) return;
-      lightbox.style.display = "none";
-      lightboxImg.src = "";
-      lightbox.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
+      closeLightbox();
     });
 
     // Fermer avec Échap
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && lightbox.style.display === "flex") {
-        lightbox.style.display = "none";
-        lightboxImg.src = "";
-        lightbox.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
+        closeLightbox();
       }
     });
   </script>
 </body>
 </html>
-
-
