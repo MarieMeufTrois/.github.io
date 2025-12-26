@@ -166,28 +166,46 @@
     .row{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap:14px; }
     @media (max-width: 900px){ .row{ grid-template-columns:1fr; } }
 
+    /* PIN (masonry) */
     .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
+      column-count: 3;
+      column-gap: 24px;
     }
-    @media (max-width: 900px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px){ .grid{ grid-template-columns: 1fr; } }
+    @media (max-width: 900px){ .grid{ column-count: 2; } }
+    @media (max-width: 560px){ .grid{ column-count: 1; } }
 
-    figure{ margin:0; }
+    figure{
+      position: relative;
+      break-inside: avoid;
+      margin: 0 0 20px;
+      cursor: zoom-in;
+    }
+
+    /* Filigrane sur la grille */
+    figure::after{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("images/watermark.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 60%;
+      opacity: 0.22; /* plus doux */
+      pointer-events: none;
+    }
+
+    /* Images + bonus sécurité */
     img{
       width:100%;
-      height: 320px;
-      object-fit: cover;
+      height:auto;
       border-radius: 14px;
       display:block;
       background:#ddd;
-      transition: transform .2s ease, box-shadow .2s ease;
+
+      user-select: none;
+      -webkit-user-drag: none;
     }
-    figure:hover img{
-      transform: scale(1.01);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.12);
-    }
+
     figcaption{ font-size:14px; color:#444; margin-top:8px; }
 
     footer{
@@ -199,6 +217,125 @@
     }
 
     html{ scroll-behavior: smooth; }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: zoom-out;
+      padding: 18px;
+    }
+
+    .lightbox-inner{
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      justify-content: center;
+      max-width: 92vw;
+      cursor: default;
+    }
+
+    /* WRAPPER IMAGE LIGHTBOX */
+    .lightbox-image-wrap{
+      position: relative;
+      display: inline-block;
+    }
+
+    /* IMAGE LIGHTBOX (no deform) */
+    .lightbox-image-wrap img{
+      max-width: 60vw;
+      max-height: 88vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 16px;
+      display:block;
+      background: transparent;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    /* FILIGRANE CENTRÉ SUR L'IMAGE */
+    .lightbox-image-wrap::after{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("images/watermark.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+      opacity: 0.80;
+      pointer-events: none;
+    }
+
+    /* INFOS À DROITE */
+    .lightbox-meta{
+      min-width: 220px;
+      max-width: 280px;
+      color: rgba(255,255,255,0.95);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    /* TITRE */
+    .lb-title{
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    /* DIMENSIONS / ANNÉE */
+    .lb-line{
+      opacity: .9;
+      margin-bottom: 14px;
+    }
+
+    /* STATUT */
+    .lb-status{
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.10);
+    }
+
+    .lb-status[data-status="Disponible"]{
+      background: rgba(0,255,180,0.12);
+      border-color: rgba(0,255,180,0.25);
+    }
+    .lb-status[data-status="Vendu"]{
+      background: rgba(255,90,90,0.12);
+      border-color: rgba(255,90,90,0.25);
+    }
+    .lb-status[data-status="Réservé"]{
+      background: rgba(255,210,90,0.12);
+      border-color: rgba(255,210,90,0.25);
+    }
+
+    /* mobile */
+    @media (max-width: 700px){
+      .lightbox-inner{
+        flex-direction: column;
+        gap: 16px;
+      }
+      .lightbox-image-wrap img{
+        max-width: 92vw;
+        max-height: 70vh;
+      }
+      .lightbox-meta{
+        max-width: 92vw;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      figure:hover img{ transform:none; }
+    }
   </style>
 </head>
 
@@ -223,10 +360,7 @@
     <section class="row">
       <div class="card">
         <h2>À propos</h2>
-        <p>
-          Artiste collagiste montreuilloise !
-          Œuvres réalisées à partir de fragments photographiques de l’espace urbain, transformés et recomposés.
-        </p>
+        <p>Artiste collagiste montreuilloise !</p>
       </div>
 
       <div class="card" id="expo">
@@ -243,144 +377,122 @@
 
     <section id="oeuvres">
       <h2>Œuvres</h2>
+
       <div class="grid">
         <figure>
-          <a href="images/tableau1.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau1.jpeg" alt="Titre du tableau 1" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 1</strong> — 50×70 cm — acrylique (2025)</figcaption>
+          <img src="images/tableau1.jpeg" alt="Titre 1" class="lightbox-img" loading="lazy"
+               data-title="Titre 1" data-size="50×70 cm" data-year="2025" data-status="Réservé" />
+          <figcaption><strong>Titre 1</strong> — 50×70 cm — 2025 — Réservé</figcaption>
         </figure>
 
         <figure>
-          <a href="images/tableau2.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau2.jpeg" alt="Titre du tableau 2" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 2</strong> — 60×60 cm — huile (2025)</figcaption>
+          <img src="images/tableau2.jpeg" alt="Titre 2" class="lightbox-img" loading="lazy"
+               data-title="Titre 2" data-size="60×60 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 2</strong> — 60×60 cm — 2025 — Disponible</figcaption>
         </figure>
 
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau3.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 3</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau3.jpeg" alt="Titre 3" class="lightbox-img" loading="lazy"
+               data-title="Titre 3" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 3</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau4.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 4</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau4.jpeg" alt="Titre 4" class="lightbox-img" loading="lazy"
+               data-title="Titre 4" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 4</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau5.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 5</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau5.jpeg" alt="Titre 5" class="lightbox-img" loading="lazy"
+               data-title="Titre 5" data-size="40×50 cm" data-year="2025" data-status="Vendu" />
+          <figcaption><strong>Titre 5</strong> — 40×50 cm — 2025 — Vendu</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau6.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 6</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau6.jpeg" alt="Titre 6" class="lightbox-img" loading="lazy"
+               data-title="Titre 6" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 6</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau7.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 7</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau7.jpeg" alt="Titre 7" class="lightbox-img" loading="lazy"
+               data-title="Titre 7" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 7</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau8.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 8</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau8.jpeg" alt="Titre 8" class="lightbox-img" loading="lazy"
+               data-title="Titre 8" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 8</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau9.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 9</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau9.jpeg" alt="Titre 9" class="lightbox-img" loading="lazy"
+               data-title="Titre 9" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 9</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau10.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 10</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau10.jpeg" alt="Titre 10" class="lightbox-img" loading="lazy"
+               data-title="Titre 10" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 10</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau11.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 11</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau11.jpeg" alt="Titre 11" class="lightbox-img" loading="lazy"
+               data-title="Titre 11" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 11</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau12.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 12</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau12.jpeg" alt="Titre 12" class="lightbox-img" loading="lazy"
+               data-title="Titre 12" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 12</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau13.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 13</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau13.jpeg" alt="Titre 13" class="lightbox-img" loading="lazy"
+               data-title="Titre 13" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 13</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau14.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 14</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau14.jpeg" alt="Titre 14" class="lightbox-img" loading="lazy"
+               data-title="Titre 14" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 14</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau15.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 15</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau15.jpeg" alt="Titre 15" class="lightbox-img" loading="lazy"
+               data-title="Titre 15" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 15</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau16.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 16</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau16.jpeg" alt="Titre 16" class="lightbox-img" loading="lazy"
+               data-title="Titre 16" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 16</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau17.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 17</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau17.jpeg" alt="Titre 17" class="lightbox-img" loading="lazy"
+               data-title="Titre 17" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 17</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau18.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 18</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau18.jpeg" alt="Titre 18" class="lightbox-img" loading="lazy"
+               data-title="Titre 18" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 18</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
-        
+
         <figure>
-          <a href="images/tableau3.jpeg" target="_blank" rel="noopener">
-            <img src="images/tableau19.jpeg" alt="Titre du tableau 3" loading="lazy" />
-          </a>
-          <figcaption><strong>Titre 19</strong> — 40×50 cm — technique (2025)</figcaption>
+          <img src="images/tableau19.jpeg" alt="Titre 19" class="lightbox-img" loading="lazy"
+               data-title="Titre 19" data-size="40×50 cm" data-year="2025" data-status="Disponible" />
+          <figcaption><strong>Titre 19</strong> — 40×50 cm — 2025 — Disponible</figcaption>
         </figure>
       </div>
-
-      <p style="color:#444; margin-top:12px">
-        Astuce : ajoute autant de tableaux que tu veux en copiant/collant un bloc &lt;figure&gt;.
-      </p>
     </section>
 
     <section class="row" id="contact">
@@ -413,10 +525,76 @@
     </div>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner" role="dialog" aria-modal="true">
+      <div class="lightbox-image-wrap">
+        <img id="lightbox-image" alt="">
+      </div>
+
+      <aside class="lightbox-meta">
+        <div class="lb-title" id="lb-title"></div>
+        <div class="lb-line">
+          <span id="lb-size"></span><br>
+          <span id="lb-year"></span>
+        </div>
+        <div class="lb-status" id="lb-status"></div>
+      </aside>
+    </div>
+  </div>
+
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-image");
+
+    const lbTitle = document.getElementById("lb-title");
+    const lbSize  = document.getElementById("lb-size");
+    const lbYear  = document.getElementById("lb-year");
+    const lbStatus= document.getElementById("lb-status");
+
+    // Ouvrir la lightbox
+    document.querySelectorAll(".lightbox-img").forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || "";
+
+        lbTitle.textContent = img.dataset.title || "";
+        lbSize.textContent  = img.dataset.size  || "";
+        lbYear.textContent  = img.dataset.year  || "";
+
+        const status = img.dataset.status || "";
+        lbStatus.textContent = status;
+        lbStatus.setAttribute("data-status", status);
+
+        lightbox.style.display = "flex";
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      });
+
+      // Dissuasion
+      img.addEventListener("contextmenu", (e) => e.preventDefault());
+    });
+
+    // Fermer au clic sur le fond (pas sur le contenu)
+    lightbox.addEventListener("click", (e) => {
+      if (e.target !== lightbox) return;
+      lightbox.style.display = "none";
+      lightboxImg.src = "";
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    });
+
+    // Fermer avec Échap
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.style.display === "flex") {
+        lightbox.style.display = "none";
+        lightboxImg.src = "";
+        lightbox.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+    });
   </script>
 </body>
 </html>
-
-
