@@ -58,6 +58,20 @@
         0 4px 12px rgba(0,0,0,0.5),
         0 16px 32px rgba(0,0,0,0.35);
     }
+    /* ===== LOGO + TITRE ===== */
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    
+    .logo{
+      height: 100px;        /* ajuste ici */
+      width: auto;
+      transform: translateX(-200px);
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.5));
+    }
+
 
     header.hero .sub{
       margin:0;
@@ -216,6 +230,22 @@
     }
 
     html{ scroll-behavior: smooth; }
+    
+    /* ===== LOGO DANS À PROPOS ===== */
+    
+    .about-head{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .about-logo{
+      background: transparent;
+      height: 75px;       /* ajuste si besoin */
+      width: auto;
+      opacity: 0.95;
+    }
 
     /* ===== LIGHTBOX ===== */
     .lightbox{
@@ -358,7 +388,9 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <h1 class="glitch" data-text="MarieMeufTrois">MarieMeufTrois</h1>
+      <h1 class="brand glitch" data-text="MarieMeufTrois">
+        MarieMeufTrois
+      </h1>
       <p class="sub">
         Peintures & collages — Montreuil<br>
         <strong>Exposition • (dates) • (lieu)</strong>
@@ -374,10 +406,17 @@
 
   <main class="wrap">
     <section class="row">
-      <div class="card">
-        <h2>À propos</h2>
-        <p>Artiste collagiste montreuilloise ! Œuvres composites réalisées à partir de fragments photographiques et textuels issus de l’espace urbain, transformés et recomposés.</p>
+      <div class="card about">
+        <div class="about-head">
+          <img src="images/logo.png" alt="Logo MarieMeufTrois" class="about-logo">
+          <h2>À propos</h2>
+        </div>
+    
+        <p>
+          Artiste collagiste montreuilloise ! Œuvres composites réalisées à partir de fragments photographiques et textuels issus de l’espace urbain, transformés et recomposés.
+        </p>
       </div>
+
 
       <div class="card" id="expo">
         <h2>Exposition</h2>
