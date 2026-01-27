@@ -6,7 +6,6 @@
   <title>MarieMeufTrois — Exposition</title>
   <meta name="description" content="Site officiel de MarieMeufTrois — peintures, exposition, contact." />
 
-  <!-- GOOGLE FONTS : SUGAR PIE (préchargée pour mobile/iOS) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style"
@@ -71,7 +70,6 @@
       transform: translateX(-200px);
       filter: drop-shadow(0 4px 12px rgba(0,0,0,.5));
     }
-
 
     header.hero .sub{
       margin:0;
@@ -180,6 +178,19 @@
     .row{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap:14px; }
     @media (max-width: 900px){ .row{ grid-template-columns:1fr; } }
 
+    /* MODIFS A PROPOS */
+    .accroche {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #333;
+      margin: 15px 0;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #eee;
+      margin: 20px 0;
+    }
+
     /* PIN (masonry) */
     .grid{
       column-count: 3;
@@ -195,7 +206,6 @@
       cursor: zoom-in;
     }
 
-    /* Filigrane sur la grille */
     figure::after{
       content: "";
       position: absolute;
@@ -208,7 +218,6 @@
       pointer-events: none;
     }
 
-    /* Images + bonus sécurité */
     img{
       width:100%;
       height:auto;
@@ -231,8 +240,6 @@
 
     html{ scroll-behavior: smooth; }
     
-    /* ===== LOGO DANS À PROPOS ===== */
-    
     .about-head{
       display: flex;
       align-items: center;
@@ -242,7 +249,7 @@
     
     .about-logo{
       background: transparent;
-      height: 75px;       /* ajuste si besoin */
+      height: 75px;
       width: auto;
       opacity: 0.95;
     }
@@ -260,7 +267,6 @@
       padding: 18px;
     }
 
-    /* CROIX FERMETURE */
     .lightbox-close{
       position: absolute;
       top: 18px;
@@ -289,13 +295,11 @@
       cursor: default;
     }
 
-    /* WRAPPER IMAGE LIGHTBOX */
     .lightbox-image-wrap{
       position: relative;
       display: inline-block;
     }
 
-    /* IMAGE LIGHTBOX (no deform) */
     .lightbox-image-wrap img{
       max-width: 60vw;
       max-height: 88vh;
@@ -308,7 +312,6 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
 
-    /* FILIGRANE CENTRÉ SUR L'IMAGE */
     .lightbox-image-wrap::after{
       content: "";
       position: absolute;
@@ -321,7 +324,6 @@
       pointer-events: none;
     }
 
-    /* INFOS À DROITE */
     .lightbox-meta{
       min-width: 220px;
       max-width: 280px;
@@ -330,17 +332,8 @@
       line-height: 1.4;
     }
 
-    .lb-title{
-      font-weight: 700;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .lb-line{
-      opacity: .9;
-      margin-bottom: 14px;
-    }
-
+    .lb-title{ font-weight: 700; font-size: 18px; margin-bottom: 10px; }
+    .lb-line{ opacity: .9; margin-bottom: 14px; }
     .lb-status{
       display: inline-block;
       padding: 6px 12px;
@@ -350,37 +343,15 @@
       background: rgba(255,255,255,0.10);
     }
 
-    .lb-status[data-status="Disponible"]{
-      background: rgba(0,255,180,0.12);
-      border-color: rgba(0,255,180,0.25);
-    }
-    .lb-status[data-status="Vendu"]{
-      background: rgba(255,90,90,0.12);
-      border-color: rgba(255,90,90,0.25);
-    }
-    .lb-status[data-status="Réservé"]{
-      background: rgba(255,210,90,0.12);
-      border-color: rgba(255,210,90,0.25);
-    }
-    .lb-status[data-status="NFS"]{
-      background: rgba(160,160,160,0.16);
-      border-color: rgba(200,200,200,0.20);
-    }
+    .lb-status[data-status="Disponible"]{ background: rgba(0,255,180,0.12); border-color: rgba(0,255,180,0.25); }
+    .lb-status[data-status="Vendu"]{ background: rgba(255,90,90,0.12); border-color: rgba(255,90,90,0.25); }
+    .lb-status[data-status="Réservé"]{ background: rgba(255,210,90,0.12); border-color: rgba(255,210,90,0.25); }
+    .lb-status[data-status="NFS"]{ background: rgba(160,160,160,0.16); border-color: rgba(200,200,200,0.20); }
 
-    /* mobile */
     @media (max-width: 700px){
-      .lightbox-inner{
-        flex-direction: column;
-        gap: 16px;
-      }
-      .lightbox-image-wrap img{
-        max-width: 92vw;
-        max-height: 70vh;
-      }
-      .lightbox-meta{
-        max-width: 92vw;
-        text-align: center;
-      }
+      .lightbox-inner{ flex-direction: column; gap: 16px; }
+      .lightbox-image-wrap img{ max-width: 92vw; max-height: 70vh; }
+      .lightbox-meta{ max-width: 92vw; text-align: center; }
     }
   </style>
 </head>
@@ -393,7 +364,7 @@
       </h1>
       <p class="sub">
         Collages & Peintures<br>
-        <strong>Exposition • (dates) • (lieu)</strong>
+        <strong>"Demain s'ouvre" • du 10 au 21 Mars • Maison du Citoyen, Fontenay s/Bois</strong>
       </p>
 
       <div class="navpills">
@@ -412,48 +383,32 @@
           <h2>À propos</h2>
         </div>
     
-        <p>
-Artiste Collagiste !
-"Oeuvres composites réalisées à partir de fragments photographiques et textuels issus de l'espace urbain, transformés et recomposés".
+        <div class="accroche">
+          <strong>Artiste Collagiste !</strong><br>
+          "Oeuvres composites réalisées à partir de fragments photographiques et textuels issus de l'espace urbain, transformés et recomposés"
+        </div>
 
-Depuis 2011, Marie marche les yeux levés, l’appareil photo à la main. 
-Dans la rue, les murs l’attirent comme des toiles géantes à ciel ouvert.
-Graffitis, collages, fresques ou simples traces de peinture, elle les capture avant qu’ils ne disparaissent.
+        <hr>
 
-Pendant des années, ces images sont restées enfermées dans son ordinateur, comme si elles attendaient leur seconde vie. Le hasard a voulu que, pour son départ à la retraite, on lui offre des toiles, des bombes et des pochoirs. Il lui a fallu quelques mois pour oser les utiliser… puis un jour, elle a imprimé ses photos et a commencé à les coller, à les peindre, à les transformer. C’est ainsi qu’est né son premier collage.
+        <p>Depuis 2011, Marie marche les yeux levés, l’appareil photo à la main. Dans la rue, les murs l’attirent comme des toiles géantes à ciel ouvert. Graffitis, collages, fresques ou simples traces de peinture, elle les capture avant qu’ils ne disparaissent.</p>
 
-Aujourd’hui, elle mêle ses photographies de Street Art à la peinture, aux pochoirs, au plexiglass ou au carton découpés au laser – clin d’œil à son passage par l’école du carton. 
-Elle aime cette idée que ses œuvres continuent la vie de ces images de rue, les sortent de l’éphémère pour les inscrire sur la toile.
+        <p>Pendant des années, ces images sont restées enfermées dans son ordinateur, comme si elles attendaient leur seconde vie. Le hasard a voulu que, pour son départ à la retraite, on lui offre des toiles, des bombes et des pochoirs. Il lui a fallu quelques mois pour oser les utiliser… puis un jour, elle a imprimé ses photos et a commencé à les coller, à les peindre, à les transformer. C’est ainsi qu’est né son premier collage.</p>
 
-Ses collages sont des fragments de ville recomposés, des bouts de murs portés à l’atelier. Ils racontent une histoire faite de couleurs, de matières et de détours urbains.
+        <p>Aujourd’hui, elle mêle ses photographies de Street Art à la peinture, aux pochoirs, au plexiglass ou au carton découpés au laser – clin d’œil à son passage par l’école du carton. Elle aime cette idée que ses œuvres continuent la vie de ces images de rue, les sortent de l’éphémère pour les inscrire sur la toile.</p>
 
-Elle est 'MarieMeufTrois', et vis à Montreuil Œuvres composites réalisées à partir de fragments photographiques et textuels issus de l’espace urbain, transformés et recomposés.
+        <p>Ses collages sont des fragments de ville recomposés, des bouts de murs portés à l’atelier. Ils racontent une histoire faite de couleurs, de matières et de détours urbains.</p>
 
-Biographie : 
-Depuis 2011, Marie marche les yeux levés, l’appareil photo à la main. 
-Dans la rue, les murs l’attirent comme des toiles géantes à ciel ouvert.
-Graffitis, collages, fresques ou simples traces de peinture, elle les capture avant qu’ils ne disparaissent.
-
-Pendant des années, ces images sont restées enfermées dans son ordinateur, comme si elles attendaient leur seconde vie. Le hasard a voulu que, pour son départ à la retraite, on lui offre des toiles, des bombes et des pochoirs. Il lui a fallu quelques mois pour oser les utiliser… puis un jour, elle a imprimé ses photos et a commencé à les coller, à les peindre, à les transformer. C’est ainsi qu’est né son premier collage.
-
-Aujourd’hui, elle mêle ses photographies de Street Art à la peinture, aux pochoirs, au plexiglass ou carton découpés au laser – clin d’œil à son passage par l’école du carton. 
-Elle aime cette idée que ses œuvres continuent la vie de ces images de rue, les sortent de l’éphémère pour les inscrire sur la toile.
-
-Ses collages sont des fragments de ville recomposés, des bouts de murs portés à l’atelier. Ils racontent une histoire,une époque, faite de couleurs de matières et de détours urbains.
-
-Elle est "MarieMeufTrois" et vit à Montreuil
-        </p>
+        <p>Elle est <strong>MarieMeufTrois</strong>, et vit à Montreuil.</p>
       </div>
-
 
       <div class="card" id="expo">
         <h2>Exposition</h2>
         <p>
-          <strong>Lieu :</strong>Maison du Citoyen<br />
-          <strong>Adresse :</strong>16, rue du Révérend-Père Aubry, 94120, Fontenay-sous-Bois<br />
-          <strong>Dates :</strong>du 10 au 21 mars 2026<br />
-          <strong>Horaires :</strong>A venir<br />
-          <strong>Vernissage :</strong>mardi 10 mars 2026 à partir de 18h30(optionnel)
+          <strong>Lieu :</strong> Maison du Citoyen<br />
+          <strong>Adresse :</strong> 16, rue du Révérend-Père Aubry, 94120, Fontenay-sous-Bois<br />
+          <strong>Dates :</strong> du 10 au 21 mars 2026<br />
+          <strong>Horaires :</strong> À venir<br />
+          <strong>Vernissage :</strong> mardi 10 mars 2026 à partir de 18h30
         </p>
       </div>
     </section>
@@ -463,147 +418,123 @@ Elle est "MarieMeufTrois" et vit à Montreuil
       
       <div class="grid">
         <figure>
-          <img src="images/tableau1.jpeg" alt="Hands up!" class="lightbox-img" loading="lazy"
-               data-title="Hands up!" data-size="30x40" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau1.jpeg" alt="Hands up!" class="lightbox-img" loading="lazy" data-title="Hands up!" data-size="30x40" data-year="2025" data-status="Vendu" />
           <figcaption><strong>Hands up!</strong> — 30x40 — 2025 — Collage photos sur carton, bombe — Vendu</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau2.jpeg" alt="Johnny" class="lightbox-img" loading="lazy"
-               data-title="Johnny" data-size="24×30" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau2.jpeg" alt="Johnny" class="lightbox-img" loading="lazy" data-title="Johnny" data-size="24×30" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Johnny</strong> — 24×30 — 2025 — Collage affiches sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau3.jpeg" alt="Respectons" class="lightbox-img" loading="lazy"
-               data-title="Respectons" data-size="46×55" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau3.jpeg" alt="Respectons" class="lightbox-img" loading="lazy" data-title="Respectons" data-size="46×55" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Respectons</strong> — 46×55 — 2025 — Collage photos sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau4.jpeg" alt="je t'aime un peu partout" class="lightbox-img" loading="lazy"
-               data-title="je t'aime un peu partout" data-size="46×55" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau4.jpeg" alt="je t'aime un peu partout" class="lightbox-img" loading="lazy" data-title="je t'aime un peu partout" data-size="46×55" data-year="2025" data-status="Disponible" />
           <figcaption><strong>je t'aime un peu partout</strong> — 46×55 — 2025 — Collage photos sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau5.jpeg" alt="I love my #" class="lightbox-img" loading="lazy"
-               data-title="I love my #" data-size="30x30" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau5.jpeg" alt="I love my #" class="lightbox-img" loading="lazy" data-title="I love my #" data-size="30x30" data-year="2025" data-status="Vendu" />
           <figcaption><strong>I love my #</strong> — 30x30 — 2025 — Collage photos sur toile, bombe — Vendu</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau6.jpeg" alt="Regard" class="lightbox-img" loading="lazy"
-               data-title="Regard" data-size="30x30" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau6.jpeg" alt="Regard" class="lightbox-img" loading="lazy" data-title="Regard" data-size="30x30" data-year="2025" data-status="Vendu" />
           <figcaption><strong>Regard</strong> — 30x30 — 2025 — Collage photos sur toile, bombe — Vendu</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau7.jpeg" alt="Les femmes de la street" class="lightbox-img" loading="lazy"
-               data-title="Les femmes de la street" data-size="30x30" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau7.jpeg" alt="Les femmes de la street" class="lightbox-img" loading="lazy" data-title="Les femmes de la street" data-size="30x30" data-year="2025" data-status="Vendu" />
           <figcaption><strong>Les femmes de la street</strong> — 30x30 — 2025 — Collage photos sur toile, bombe — Vendu</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau8.jpeg" alt="The End" class="lightbox-img" loading="lazy"
-               data-title="The End" data-size="30x30" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau8.jpeg" alt="The End" class="lightbox-img" loading="lazy" data-title="The End" data-size="30x30" data-year="2025" data-status="Vendu" />
           <figcaption><strong>The End</strong> — 30x30 — 2025 — Collage photos sur toile, bombe — Vendu</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau9.jpeg" alt="Rêve Indien" class="lightbox-img" loading="lazy"
-               data-title="Rêve Indien" data-size="46x55" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau9.jpeg" alt="Rêve Indien" class="lightbox-img" loading="lazy" data-title="Rêve Indien" data-size="46x55" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Rêve Indien</strong> — 46x55 — 2025 — Collage photos sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau10.jpeg" alt="Moi je préfère les Meufs" class="lightbox-img" loading="lazy"
-               data-title="Moi je préfère les Meufs" data-size="30x40" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau10.jpeg" alt="Moi je préfère les Meufs" class="lightbox-img" loading="lazy" data-title="Moi je préfère les Meufs" data-size="30x40" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Moi je préfère les Meufs</strong> — 30x40 — 2025 — Collage photos sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau11.jpeg" alt="Le Baiser" class="lightbox-img" loading="lazy"
-               data-title="Le Baiser" data-size="60x40" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau11.jpeg" alt="Le Baiser" class="lightbox-img" loading="lazy" data-title="Le Baiser" data-size="60x40" data-year="2025" data-status="Vendu" />
           <figcaption><strong>Le Baiser</strong> — 60x40 — 2025 — Collage photos et carton sur toile, bombe — Vendu</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau12.jpeg" alt="Madame rêve" class="lightbox-img" loading="lazy"
-               data-title="Madame rêve" data-size="40x30" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau12.jpeg" alt="Madame rêve" class="lightbox-img" loading="lazy" data-title="Madame rêve" data-size="40x30" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Madame rêve</strong> — 40x30 — 2025 — Collage carton sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau13.jpeg" alt="Mon Rouge" class="lightbox-img" loading="lazy"
-               data-title="Mon Rouge" data-size="70x70" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau13.jpeg" alt="Mon Rouge" class="lightbox-img" loading="lazy" data-title="Mon Rouge" data-size="70x70" data-year="2025" data-status="Vendu" />
           <figcaption><strong>Mon Rouge</strong> — 70x70 — 2025 — Collage carton sur toile, bombe — Vendu</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau14.jpeg" alt="Reste Authentik" class="lightbox-img" loading="lazy"
-               data-title="Reste Authentik" data-size="50x70" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau14.jpeg" alt="Reste Authentik" class="lightbox-img" loading="lazy" data-title="Reste Authentik" data-size="50x70" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Reste Authentik</strong> — 50x70 — 2025 — Collage photos et carton sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau15.jpeg" alt="Marseille" class="lightbox-img" loading="lazy"
-               data-title="Marseille" data-size="50x50" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau15.jpeg" alt="Marseille" class="lightbox-img" loading="lazy" data-title="Marseille" data-size="50x50" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Marseille</strong> — 50x50 — 2025 — Collage photos et carton sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau16.jpeg" alt="Mangrove" class="lightbox-img" loading="lazy"
-               data-title="Mangrove" data-size="38x46" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau16.jpeg" alt="Mangrove" class="lightbox-img" loading="lazy" data-title="Mangrove" data-size="38x46" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Mangrove</strong> — 38x46 — 2025 — Collage photos et carton sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau17.jpeg" alt="Last trip to Babcock" class="lightbox-img" loading="lazy"
-               data-title="Last trip to Babcock" data-size="33x41" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau17.jpeg" alt="Last trip to Babcock" class="lightbox-img" loading="lazy" data-title="Last trip to Babcock" data-size="33x41" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Last trip to Babcock</strong> — 33x41 — 2025 — Collage carton sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau18.jpeg" alt="Vivez heureux" class="lightbox-img" loading="lazy"
-               data-title="Vivez heureux" data-size="50x70" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau18.jpeg" alt="Vivez heureux" class="lightbox-img" loading="lazy" data-title="Vivez heureux" data-size="50x70" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Vivez heureux</strong> — 50x70 — 2025 — Collage journaux, photos et carton sur toile, bombe — Disponible</figcaption>
         </figure>
 
         <figure>
-          <img src="images/tableau19.jpeg" alt="Jane et Serge" class="lightbox-img" loading="lazy"
-               data-title="Jane et Serge" data-size="50x70" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau19.jpeg" alt="Jane et Serge" class="lightbox-img" loading="lazy" data-title="Jane et Serge" data-size="50x70" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Jane et Serge</strong> — 50x70 — 2025 — Collage photos sur toile, bombe — Disponible</figcaption>
         </figure>
         
         <figure>
-          <img src="images/tableau20.jpeg" alt="Je suis dans la lune" class="lightbox-img" loading="lazy"
-               data-title="Je suis dans la lune" data-size="Diptyque 2x (24,5x29,5)" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau20.jpeg" alt="Je suis dans la lune" class="lightbox-img" loading="lazy" data-title="Je suis dans la lune" data-size="Diptyque 2x (24,5x29,5)" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Je suis dans la lune</strong> — Diptyque 2x (24,5x29,5) — 2025 — Collage photos, plastique et plexiglass sur toile, bombe — Disponible</figcaption>
         </figure>
         
         <figure>
-          <img src="images/tableau21.jpeg" alt="Une humeur de chien" class="lightbox-img" loading="lazy"
-               data-title="Une humeur de chien" data-size="46x55" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau21.jpeg" alt="Une humeur de chien" class="lightbox-img" loading="lazy" data-title="Une humeur de chien" data-size="46x55" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Une humeur de chien</strong> — 46x55 — 2025 — Collage journaux et carton sur toile, bombe — Disponible</figcaption>
         </figure>
         
         <figure>
-          <img src="images/tableau22.jpeg" alt="Un homme peut en cacher un autre" class="lightbox-img" loading="lazy"
-               data-title="Un homme peut en cacher un autre" data-size="40×40" data-year="2025" data-status="Disponible" />
+          <img src="images/tableau22.jpeg" alt="Un homme peut en cacher un autre" class="lightbox-img" loading="lazy" data-title="Un homme peut en cacher un autre" data-size="40×40" data-year="2025" data-status="Disponible" />
           <figcaption><strong>Un homme peut en cacher un autre</strong> — 40×40 — 2025 — Collage carton sur toile, bombe — Disponible</figcaption>
         </figure>
         
         <figure>
-          <img src="images/tableau23.jpeg" alt="Némo pour Némo" class="lightbox-img" loading="lazy"
-               data-title="Némo pour Némo" data-size="46x55" data-year="2025" data-status="Vendu" />
+          <img src="images/tableau23.jpeg" alt="Némo pour Némo" class="lightbox-img" loading="lazy" data-title="Némo pour Némo" data-size="46x55" data-year="2025" data-status="Vendu" />
           <figcaption><strong>Némo pour Némo</strong> — 46x55 — 2025 — Collage photos sur toile et carton, bombe — Vendu</figcaption>
         </figure>
-        
       </div>
     </section>
 
-    <section class="row" id="contact">
+    <section class="row" id="contact" style="margin-top: 60px;">
       <div class="card">
         <h2>Contact</h2>
         <p>
@@ -620,8 +551,10 @@ Elle est "MarieMeufTrois" et vit à Montreuil
         <h2>Infos pratiques</h2>
         <p>
           • Entrée libre <br />
-          • Accès (RER A : gare de Fontenay-sous-Bois ou de Val de Fontenay puis bus 124 arrêt "Hôtel de ville"). En voiture : A86, sortie Fontenay-sous-Bois<br />
-          • Paiement / réservations (optionnel)
+          • Accès<br />
+            <strong>Transports en commun</strong> : RER A, arrêt "Fontenay-sous-Bois" ou "Val de Fontenay" puis bus 124 arrêt "Hôtel de ville". <br />
+            <strong>Voiture</strong> : A86, sortie Fontenay-sous-Bois<br />
+          
         </p>
       </div>
     </section>
@@ -633,15 +566,12 @@ Elle est "MarieMeufTrois" et vit à Montreuil
     </div>
   </footer>
 
-  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="lightbox-close" aria-label="Fermer">✕</button>
-
     <div class="lightbox-inner" role="dialog" aria-modal="true">
       <div class="lightbox-image-wrap">
         <img id="lightbox-image" alt="">
       </div>
-
       <aside class="lightbox-meta">
         <div class="lb-title" id="lb-title"></div>
         <div class="lb-line">
@@ -655,12 +585,10 @@ Elle est "MarieMeufTrois" et vit à Montreuil
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-image");
     lightboxImg.addEventListener("contextmenu", (e) => e.preventDefault());
     const closeBtn = document.querySelector(".lightbox-close");
-
     const lbTitle = document.getElementById("lb-title");
     const lbSize  = document.getElementById("lb-size");
     const lbYear  = document.getElementById("lb-year");
@@ -673,47 +601,26 @@ Elle est "MarieMeufTrois" et vit à Montreuil
       document.body.style.overflow = "";
     }
 
-    // Ouvrir la lightbox
     document.querySelectorAll(".lightbox-img").forEach((img) => {
       img.addEventListener("click", () => {
         lightboxImg.src = img.src;
         lightboxImg.alt = img.alt || "";
-
         lbTitle.textContent = img.dataset.title || "";
         lbSize.textContent  = img.dataset.size  || "";
         lbYear.textContent  = img.dataset.year  || "";
-
         const status = img.dataset.status || "";
         lbStatus.textContent = status;
         lbStatus.setAttribute("data-status", status);
-
         lightbox.style.display = "flex";
         lightbox.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
       });
-
-      // Dissuasion
       img.addEventListener("contextmenu", (e) => e.preventDefault());
     });
 
-    // Croix
-    closeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      closeLightbox();
-    });
-
-    // Fermer au clic sur le fond
-    lightbox.addEventListener("click", (e) => {
-      if (e.target !== lightbox) return;
-      closeLightbox();
-    });
-
-    // Fermer avec Échap
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lightbox.style.display === "flex") {
-        closeLightbox();
-      }
-    });
+    closeBtn.addEventListener("click", (e) => { e.stopPropagation(); closeLightbox(); });
+    lightbox.addEventListener("click", (e) => { if (e.target !== lightbox) return; closeLightbox(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lightbox.style.display === "flex") closeLightbox(); });
   </script>
 </body>
 </html>
